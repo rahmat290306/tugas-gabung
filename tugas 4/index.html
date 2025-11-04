@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Pribadi Saya</title>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .profile-section {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 40px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 15px;
+        }
+        
+        .profile-image {
+            flex-shrink: 0;
+        }
+        
+        .profile-image img {
+            border-radius: 50%;
+            border: 5px solid #667eea;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .profile-info {
+            flex-grow: 1;
+        }
+        
+        .profile-info p {
+            font-size: 1.1em;
+            line-height: 1.8;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .profile-info strong {
+            color: #667eea;
+        }
+        
+        .section-title {
+            color: #667eea;
+            font-size: 1.8em;
+            margin: 30px 0 20px 0;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+        
+        /* Styling Tabel Biodata */
+        .biodata-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .biodata-table th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-size: 1.1em;
+        }
+        
+        .biodata-table td {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            background: white;
+        }
+        
+        .biodata-table tr:hover td {
+            background: #f8f9fa;
+        }
+        
+        /* Styling Lists */
+        .list-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 20px 0;
+        }
+        
+        .list-box {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 15px;
+            border-left: 5px solid #667eea;
+        }
+        
+        .list-box h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+        
+        .list-box ul, .list-box ol {
+            margin-left: 20px;
+        }
+        
+        .list-box li {
+            margin: 10px 0;
+            font-size: 1.05em;
+            line-height: 1.6;
+        }
+        
+        /* Styling Form */
+        .contact-form {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+            font-size: 1.05em;
+        }
+        
+        .form-group input[type="text"],
+        .form-group input[type="email"] {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: border 0.3s;
+        }
+        
+        .form-group input[type="text"]:focus,
+        .form-group input[type="email"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .radio-group, .checkbox-group {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .radio-group label, .checkbox-group label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: normal;
+            cursor: pointer;
+        }
+        
+        .radio-group input[type="radio"],
+        .checkbox-group input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.6);
+        }
+        
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        
+        .footer {
+            background: #2d3748;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .profile-section {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .list-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .radio-group, .checkbox-group {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Container utama -->
+    <div class="container" id="main-container">
+        
+        <!-- Header halaman -->
+        <div class="header">
+            <h1 title="Halaman Profil Pribadi">Profil Pribadi Saya</h1>
+            <p>Selamat datang di halaman profil saya</p>
+        </div>
+        
+        <!-- Konten utama -->
+        <div class="content">
+            
+            <!-- Bagian 1: Profil dengan gambar dan paragraf identitas -->
+            <section class="profile-section" id="profile-info">
+                <!-- Gambar profil dengan atribut lengkap -->
+                <div class="profile-image">
+                    <img src="foto.saya.jpg" 
+                         alt="Foto Profil saya" 
+                         width="200" 
+                         height="200"
+                         title="Foto Profil saya">
+                </div>
+                
+                <!-- Paragraf identitas (minimal 3 paragraf) -->
+                <div class="profile-info">
+                    <p class="intro-text" title="Nama Lengkap">
+                        <strong>Nama Lengkap:</strong> Ilham
+                    </p>
+                    
+                    <p class="intro-text" title="Nomor Induk Mahasiswa">
+                        <strong>NIM:</strong> [Silakan isi NIM Anda di sini]
+                    </p>
+                    
+                    <p class="intro-text" title="Hobi Saya">
+                        <strong>Hobi:</strong> Saya sangat menyukai olahraga, terutama sepak bola, dan futsal. Aktivitas fisik ini membantu saya tetap sehat dan bugar.
+                    </p>
+                </div>
+            </section>
+            
+            <!-- Bagian 2: Tabel Biodata -->
+            <section id="biodata-section">
+                <h2 class="section-title" title="Tabel Biodata Lengkap">📋 Biodata Lengkap</h2>
+                
+                <!-- Tabel biodata dengan struktur lengkap -->
+                <table class="biodata-table" title="Informasi Biodata Pribadi">
+                    <thead>
+                        <tr>
+                            <th>Keterangan</th>
+                            <th>Informasi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Nama Lengkap</strong></td>
+                            <td>Ilham</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Tanggal Lahir</strong></td>
+                            <td>[Silakan isi tanggal lahir Anda]</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Alamat</strong></td>
+                            <td>[Silakan isi alamat Anda]</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Email</strong></td>
+                            <td>Ilham@.gmail.com</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+            
+            <!-- Bagian 3: Daftar Hobi dan Aktivitas -->
+            <section id="hobi-section">
+                <h2 class="section-title" title="Daftar Hobi dan Aktivitas">🎯 Hobi & Aktivitas Favorit</h2>
+                
+                <div class="list-container">
+                    <!-- Unordered List (daftar tidak berurutan) -->
+                    <div class="list-box" id="hobi-list">
+                        <h3 title="Daftar Hobi Olahraga">Hobi Olahraga (Unordered List)</h3>
+                        <ul class="hobi-ul" title="Daftar hobi olahraga favorit">
+                            <li>Sepak Bola - Olahraga tim yang mengasah kerja sama</li>
+                            <li>Futsal - Versi indoor dari sepak bola yang lebih dinamis</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Ordered List (daftar berurutan) -->
+                    <div class="list-box" id="aktivitas-list">
+                        <h3 title="Aktivitas Harian Favorit">Aktivitas Harian (Ordered List)</h3>
+                        <ol class="aktivitas-ol" title="Urutan aktivitas favorit">
+                            <li>Berolahraga di pagi hari untuk memulai hari dengan energi</li>
+                            <li>Belajar dan mengerjakan tugas kuliah</li>
+                            <li>Bermain game atau menonton film untuk refreshing</li>
+                            <li>Berlatih olahraga bersama teman-teman</li>
+                            <li>Istirahat yang cukup untuk menjaga kesehatan</li>
+                        </ol>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Bagian 4: Form Kontak -->
+            <section id="form-section">
+                <h2 class="section-title" title="Formulir Kontak">📬 Formulir Kontak</h2>
+                
+                <!-- Form dengan berbagai input field -->
+                <form class="contact-form" id="contact-form" title="Formulir input data kontak">
+                    
+                    <!-- Input Nama -->
+                    <div class="form-group">
+                        <label for="nama" title="Masukkan nama lengkap Anda">Nama Lengkap:</label>
+                        <input type="text" 
+                               id="nama" 
+                               name="nama" 
+                               class="form-input"
+                               placeholder="Masukkan nama Anda"
+                               title="Field untuk input nama">
+                    </div>
+                    
+                    <!-- Input Email -->
+                    <div class="form-group">
+                        <label for="email" title="Masukkan alamat email Anda">Email:</label>
+                        <input type="email" 
+                               id="email" 
+                               name="email" 
+                               class="form-input"
+                               placeholder="contoh@email.com"
+                               title="Field untuk input email">
+                    </div>
+                    
+                    <!-- Radio Button Jenis Kelamin -->
+                    <div class="form-group">
+                        <label title="Pilih jenis kelamin Anda">Jenis Kelamin:</label>
+                        <div class="radio-group">
+                            <label title="Pilihan Laki-laki">
+                                <input type="radio" 
+                                       id="laki-laki" 
+                                       name="jenis_kelamin" 
+                                       value="laki-laki"
+                                       class="radio-input">
+                                Laki-laki
+                            </label>
+                            <label title="Pilihan Perempuan">
+                                <input type="radio" 
+                                       id="perempuan" 
+                                       name="jenis_kelamin" 
+                                       value="perempuan"
+                                       class="radio-input">
+                                Perempuan
+                            </label>
+                            <label title="Pilihan Perempuan">
+                                <input type="radio" 
+                                       id="tidak ada" 
+                                       name="tidak ada" 
+                                       value="tidak ada"
+                                       class="radio-input">
+                                tidak ada
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- Checkbox Hobi -->
+                    <div class="form-group">
+                        <label title="Pilih hobi Anda (boleh lebih dari satu)">Hobi (pilih minimal 1):</label>
+                        <div class="checkbox-group">
+                            <label title="Hobi Sepak Bola">
+                                <input type="checkbox" 
+                                       id="hobi-sepakbola" 
+                                       name="hobi" 
+                                       value="sepakbola"
+                                       class="checkbox-input">
+                                Sepak Bola
+                            </label>
+                            <label title="Hobi Futsal">
+                                <input type="checkbox" 
+                                       id="hobi-futsal" 
+                                       name="hobi" 
+                                       value="futsal"
+                                       class="checkbox-input">
+                                Futsal
+                    <!-- Tombol Submit -->
+                    <div class="form-group">
+                        <button type="submit" 
+                                class="submit-btn" 
+                                id="submit-button"
+                                title="Klik untuk mengirim formulir">
+                            Submit
+                        </button>
+                    </div>
+                </form>
+            </section>
+            
+        </div>
+        
+        <!-- Footer -->
+        <div class="footer">
+            <p>&copy; 2025 Profil Pribadi Aqil. All rights reserved.</p>
+        </div>
+        
+    </div>
+</body>
+</html>
